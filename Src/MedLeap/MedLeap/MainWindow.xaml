@@ -1,0 +1,67 @@
+﻿<Window x:Class="MedLeap.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="738" Width="1366"
+        WindowStyle ="None"
+        WindowState="Maximized">
+    <Grid Background="Black">
+        <Viewbox>
+            <Grid Height="768" Width="1366">
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition Height="26"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                </Grid.ColumnDefinitions>
+                <Grid Height="500" Width="500">
+                    <Image x:Name="Viewer1"/>
+                </Grid>
+                <StackPanel x:Name="DebugStack" Margin="10,10,0,0">
+                    <TextBlock Text="Debug Stack" Foreground="DarkViolet" FontSize="15" />
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <TextBlock Text=">Blobs!: :" Foreground="White"  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12" />
+                        <TextBlock x:Name="BlobCount" Text="Unset" Foreground="White" FontSize="12" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <TextBlock Text=">Frame: :" Foreground="White"  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12" />
+                        <TextBlock x:Name="Frame" Text="Unset" Foreground="White" FontSize="12" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                    </StackPanel>
+                    <StackPanel Margin="0,5">
+                        
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <TextBlock Text="Filter Mode" Foreground="White"  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <TextBlock Text=">Filter via RGB? :" Foreground="White"  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12" />
+                        <RadioButton GroupName="FilterRadio" Checked="ToggleButton_OnChecked">filter1</RadioButton>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <TextBlock Text=">Enhance! :" Foreground="White"  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12" />
+                        <RadioButton GroupName="FilterRadio" Checked="ToggleButton_OnChecked">filter2</RadioButton>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <TextBlock Text=">None :" Foreground="White"  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12" />
+                        <RadioButton GroupName="FilterRadio" Checked="ToggleButton_OnChecked">None</RadioButton>
+                    </StackPanel>
+                    <StackPanel Margin="0,5">
+
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <TextBlock Text=">Draw Blobs:" Foreground="White"  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12" />
+                        <CheckBox x:Name="DrawBlob" Click="DrawBlob_OnClick" />
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <TextBlock Text=">Refine Blobbing" Foreground="White"  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12" />
+                        <CheckBox x:Name="Refineblob" Click="Refineblob_OnClick"/>
+                    </StackPanel>
+
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Background="DarkViolet" Grid.Row="1">
+                    <TextBlock Text="Status:" Foreground="White" Margin="10,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12" />
+                    <TextBlock x:Name="Status" Text="Unset" Foreground="White" FontSize="12" VerticalAlignment="Center" Margin="5,0,0,0"/>
+                </StackPanel>
+            </Grid>
+        </Viewbox>
+    </Grid>
+</Window>
