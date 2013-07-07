@@ -115,18 +115,6 @@ namespace MedLeap
             }
             bi.EndInit();
             bi.Freeze();
-
-            //var ms3 = new MemoryStream();
-            //bipOverlay.Save(ms3, ImageFormat.Bmp);
-
-            ////read mem into bitmap for overlay
-            //var biOverlay = new BitmapImage();
-            //biOverlay.BeginInit();
-            //ms3.Seek(0, SeekOrigin.Begin);
-            //biOverlay.StreamSource = ms3;
-            //biOverlay.Freeze();
-
-            //update screen
             Dispatcher.BeginInvoke(new ThreadStart(delegate
                 {
                     Viewer1.Source = bi;
