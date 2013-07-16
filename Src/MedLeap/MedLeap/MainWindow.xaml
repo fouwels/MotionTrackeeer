@@ -41,6 +41,10 @@
                         <RadioButton GroupName="FilterRadio" Checked="ToggleButton_OnChecked">filter2</RadioButton>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <TextBlock Text=">Threshhold+ :" Foreground="White"  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12" />
+                        <RadioButton GroupName="FilterRadio" Checked="ToggleButton_OnChecked">filter3</RadioButton>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top">
                         <TextBlock Text=">None :" Foreground="White"  HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="12" />
                         <RadioButton GroupName="FilterRadio" Checked="ToggleButton_OnChecked">None</RadioButton>
                     </StackPanel>

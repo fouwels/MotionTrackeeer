@@ -1,22 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Interop;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Threading;
 using AForge;
 using AForge.Imaging;
@@ -55,9 +45,14 @@ namespace MedLeap
                     filter.Blue = new IntRange(0, 100);
                     break;
                 case "filter2":
-                    filter.Red = new IntRange(0, 255);
-                    filter.Green = new IntRange(0, 100);
-                    filter.Blue = new IntRange(0, 100);
+                    filter.Red = new IntRange(0, 50);
+                    filter.Green = new IntRange(0, 50);
+                    filter.Blue = new IntRange(0, 50);
+                    break;
+                case "filter3":
+                    filter.Red = new IntRange(175, 255);
+                    filter.Green = new IntRange(130, 250);
+                    filter.Blue = new IntRange(100, 200);
                     break;
                 case "none":
                     filter.Red = new IntRange(0, 255);
@@ -73,6 +68,8 @@ namespace MedLeap
             BlobCounterBase bc = new BlobCounter();
             bc.FilterBlobs = true;
             bc.MinWidth = 10;
+            bc.MaxHeight = 400;
+            bc.MaxWidth = 400;
             bc.MinHeight = 10;
             bc.ObjectsOrder = ObjectsOrder.Size;
             bc.ProcessImage(bip);
@@ -82,18 +79,34 @@ namespace MedLeap
 
             if (_drawBlobState)
             {
-                using (var bitmap = new Bitmap(500, 500))
+                using (var bitmap = new Bitmap(640, 480))
                 {
                     using (var canvas = Graphics.FromImage(bitmap))
                     {
                         canvas.InterpolationMode = InterpolationMode.HighQualityBicubic;
-                        canvas.DrawImage(bip, new Rectangle(0, 0, 500, 500), new Rectangle(0, 0, 500, 500), GraphicsUnit.Pixel);
+                        canvas.DrawImage(bip, new Rectangle(0, 0, 640, 480), new Rectangle(0, 0, 640, 480), GraphicsUnit.Pixel);
+                        int i = 0;
                         foreach (Rectangle rect in rects)
                         {
-                            using (var pen = new System.Drawing.Pen(System.Drawing.Color.FromArgb(255, 255, 0), 2))
+                            if (_refineBlobState)
                             {
-                                canvas.DrawRectangle(pen, rect);
+                                if (i < 4)
+                                {
+                                    using (var pen = new System.Drawing.Pen(System.Drawing.Color.FromArgb(255, 255, 0), 2))
+                                    {
+                                        canvas.DrawRectangle(pen, rect);
+                                    }
+                                }
                             }
+                            else
+                            {
+                                using (var pen = new System.Drawing.Pen(System.Drawing.Color.FromArgb(255, 255, 0), 2))
+                                {
+                                    canvas.DrawRectangle(pen, rect);
+                                }
+                            }
+                           
+                            i++;
                         }
                         ms3.Seek(0, SeekOrigin.Begin);
                         bitmap.Save(ms3, ImageFormat.Bmp);
@@ -134,7 +147,7 @@ namespace MedLeap
         void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
             _localWebCamsCollection = new FilterInfoCollection(FilterCategory.VideoInputDevice);
-            _localWebCam = new VideoCaptureDevice(_localWebCamsCollection[1].MonikerString);
+            _localWebCam = new VideoCaptureDevice(_localWebCamsCollection[0].MonikerString);
             _localWebCam.NewFrame += Cam_NewFrame;
 
             UpdateStatus("Trying to start LocalWebCam");
